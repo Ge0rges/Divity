@@ -13,7 +13,7 @@
 typedef enum NSMotionType : NSUInteger {
   NSMotionSport = 0,
   NSMotionIdle,
-  NSMotionMoving,
+  NSMotionUnknown
   
 } NSMotionType;
 
@@ -26,6 +26,7 @@ typedef enum NSTransportationMode : NSUInteger {
   NSTransportationModeBoat,
   NSTransportationModeHelicopter,
   NSTransportationModePlane,
+  NSTransportationModeOther
   
 } NSTransportationMode;
 
@@ -38,18 +39,28 @@ typedef enum NSWeatherState : NSUInteger {//https://openweathermap.org/weather-c
   NSWeatherStateDrizzle,
   NSWeatherStateThunderstorm,
   NSWeatherStateExtreme,
-  NSWeatherStateOther,
+  NSWeatherStateOther
   
 } NSWeatherState;
 
+typedef enum NSListenningMode : NSUInteger {
+  NSListenningModeSpeaker = 0,
+  NSListenningModeCar,
+  NSListenningModeHeadphones,
+  NSListenningModeUSB,
+  NSListenningModeOther
+  
+} NSListenningMode;
+
 typedef void (^handler)(Divity *currentDivity);
-+ (void)calculateCurrentDivity:(handler)handler;
++ (instancetype)sharedDivity;
+- (void)calculateCurrentDivity:(handler)handler;
 
 @property (readonly, nonatomic) NSMotionType motionType;
 @property (readonly, nonatomic) NSTransportationMode transportationMode;
 @property (readonly, nonatomic) NSWeatherState weather;
+@property (readonly, nonatomic) NSListenningMode listenningMode;
 @property (readonly, nonatomic) BOOL playingMusic;
-@property (readonly, nonatomic) BOOL usingHeadphones;
 @property (strong, readonly, nonatomic) NSDictionary *place;// Courtesy of Foursquare
 
 // Activity is based upon all of the above. It's an action in english.

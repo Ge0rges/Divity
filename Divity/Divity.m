@@ -8,13 +8,16 @@
 
 #import "Divity.h"
 
+// Frameworks
+#import <AVFoundation/AVFoundation.h>
+
 @interface Divity ()
 
 @property (nonatomic) NSMotionType motionType;
 @property (nonatomic) NSTransportationMode transportationMode;
 @property (nonatomic) NSWeatherState weather;
+@property (nonatomic) NSListenningMode listenningMode;
 @property (nonatomic) BOOL playingMusic;
-@property (nonatomic) BOOL usingHeadphones;
 @property (strong, nonatomic) NSDictionary *place;// Courtesy of Foursquare
 
 // Activity is based upon all of the above. It's an action in english.
@@ -25,7 +28,6 @@
 @implementation Divity
 
 // Different datapoints to build a divity upon:
-
 // On board data
 //NSDivitiWeather = 0,
 //NSDivityMotion,// Running, walking, car, train, plane...
@@ -42,8 +44,43 @@
 //NSDivityUber,// In a ride or not.
 //NSDivityFoursquare,// This renders location useful by giving it context.
 
-+ (void)calculateCurrentDivity:(handler)handler {
++ (instancetype)sharedDivity {
+  static Divity *sharedDivity = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    sharedDivity = [[self alloc] init];
+  });
   
+  return sharedDivity;
+}
+
+- (void)calculateCurrentDivity:(handler)handler {
+  // Set playingMusic
+  self.playingMusic = [[AVAudioSession sharedInstance] isOtherAudioPlaying];
+  
+  // Set listenning mode
+  [self setListenningMode];
+}
+
+- (void)setListenningMode {
+  AVAudioSessionRouteDescription* route = [[AVAudioSession sharedInstance] currentRoute];
+  for (AVAudioSessionPortDescription* desc in [route outputs]) {
+    if ([[desc portType] isEqualToString:AVAudioSessionPortHeadphones]) {
+      self.listenningMode = NSListenningModeHeadphones;
+    
+    } else if ([[desc portType] isEqualToString:AVAudioSessionPortCarAudio]) {
+      self.listenningMode = NSListenningModeCar;
+
+    } else if ([[desc portType] isEqualToString:AVAudioSessionPortUSBAudio]) {
+      self.listenningMode = NSListenningModeUSB;
+
+    } else if ([[desc portType] isEqualToString:AVAudioSessionPortBuiltInSpeaker]) {
+      self.listenningMode = NSListenningModeSpeaker;
+
+    } else {
+      self.listenningMode = NSListenningModeOther;
+    }
+  }
 }
 
 @end
