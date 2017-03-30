@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB2F3FE21E8D330B00B5A329 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2F3FE11E8D330B00B5A329 /* CoreLocation.framework */; };
+		FB2F3FE41E8D335200B5A329 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2F3FE31E8D335200B5A329 /* CoreMotion.framework */; };
 		FBEEE7911E7C4D8E008B52A2 /* Divity.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEEE7901E7C4D8E008B52A2 /* Divity.m */; };
 		FBEEE7921E7C4D8E008B52A2 /* Divity.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBEEE78F1E7C4D8E008B52A2 /* Divity.h */; };
 /* End PBXBuildFile section */
@@ -25,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FB2F3FE11E8D330B00B5A329 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FB2F3FE31E8D335200B5A329 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		FBEEE78C1E7C4D8D008B52A2 /* libDivity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDivity.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBEEE78F1E7C4D8E008B52A2 /* Divity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Divity.h; sourceTree = "<group>"; };
 		FBEEE7901E7C4D8E008B52A2 /* Divity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Divity.m; sourceTree = "<group>"; };
@@ -35,17 +39,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB2F3FE41E8D335200B5A329 /* CoreMotion.framework in Frameworks */,
+				FB2F3FE21E8D330B00B5A329 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FB2F3FE01E8D330B00B5A329 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FB2F3FE31E8D335200B5A329 /* CoreMotion.framework */,
+				FB2F3FE11E8D330B00B5A329 /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FBEEE7831E7C4D8D008B52A2 = {
 			isa = PBXGroup;
 			children = (
 				FBEEE78E1E7C4D8D008B52A2 /* Divity */,
 				FBEEE78D1E7C4D8D008B52A2 /* Products */,
+				FB2F3FE01E8D330B00B5A329 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -257,6 +273,7 @@
 				FBEEE7971E7C4D8E008B52A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

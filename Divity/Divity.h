@@ -13,6 +13,8 @@
 typedef enum NSMotionType : NSUInteger {
   NSMotionSport = 0,
   NSMotionIdle,
+  NSMotionWalking,
+  NSMotionAutomotive,
   NSMotionUnknown
   
 } NSMotionType;
@@ -26,7 +28,7 @@ typedef enum NSTransportationMode : NSUInteger {
   NSTransportationModeBoat,
   NSTransportationModeHelicopter,
   NSTransportationModePlane,
-  NSTransportationModeOther
+  NSTransportationModeUnknown
   
 } NSTransportationMode;
 

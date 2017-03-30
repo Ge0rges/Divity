@@ -10,6 +10,8 @@
 
 // Frameworks
 #import <AVFoundation/AVFoundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import <CoreMotion/CoreMotion.h>
 
 @interface Divity ()
 
@@ -60,6 +62,17 @@
   
   // Set listenning mode
   [self setListenningMode];
+  
+  // Motion Type
+  CMMotionActivityManager *motionActivityManager = [CMMotionActivityManager new];
+  [motionActivityManager startActivityUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMMotionActivity * _Nullable activity) {
+    [self determineMotionAndTransportationTypesFromActivity:activity];
+    [motionActivityManager stopActivityUpdates];
+  }];
+  
+#warning handler is never called
+#warning weather is never set
+#warning place and likely activity not set
 }
 
 - (void)setListenningMode {
@@ -80,6 +93,35 @@
     } else {
       self.listenningMode = NSListenningModeOther;
     }
+  }
+}
+
+- (void)determineMotionAndTransportationTypesFromActivity:(CMMotionActivity * _Nonnull)activity {
+  if (activity.unknown) {
+    self.motionType = NSMotionUnknown;
+    self.transportationMode = NSTransportationModeUnknown;
+  
+  } else if (activity.stationary) {
+    self.motionType = NSMotionIdle;
+    
+    // Only set to unknown if there is no previous t. mode.
+    if (!self.transportationMode) {
+      self.transportationMode = NSTransportationModeUnknown;
+    }
+  
+  } else if (activity.walking) {
+    self.motionType = NSMotionWalking;
+#warning determine if walking or running
+    self.transportationMode = NSTransportationModeWalking;
+  
+  } else if (activity.cycling) {
+    self.motionType = NSMotionAutomotive;
+    self.transportationMode = NSTransportationModeCycling;
+  
+  } else if (activity.automotive) {
+    self.motionType = NSMotionAutomotive;
+#warning determine transportation mode: car, train, boat, helicopter or unknown
+    self.transportationMode = NSTransportationModeCycling;
   }
 }
 
