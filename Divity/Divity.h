@@ -11,9 +11,8 @@
 @interface Divity : NSObject
 
 typedef enum NSMotionType : NSUInteger {
-  NSMotionSport = 0,
-  NSMotionIdle,
-  NSMotionWalking,
+  NSMotionIdle = 0,
+  NSMotionOnFoot,
   NSMotionAutomotive,
   NSMotionUnknown
   

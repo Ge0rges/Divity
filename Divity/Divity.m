@@ -110,10 +110,13 @@
     }
   
   } else if (activity.walking) {
-    self.motionType = NSMotionWalking;
-#warning determine if walking or running
+    self.motionType = NSMotionOnFoot;
     self.transportationMode = NSTransportationModeWalking;
   
+  } else if (activity.running) {
+    self.motionType = NSMotionOnFoot;
+    self.transportationMode = NSTransportationModeRunning;
+    
   } else if (activity.cycling) {
     self.motionType = NSMotionAutomotive;
     self.transportationMode = NSTransportationModeCycling;
